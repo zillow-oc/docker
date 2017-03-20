@@ -1,4 +1,4 @@
-FROM docker:1.11-git
+FROM docker:1.13-git
 
 RUN \
   mkdir -p /aws && \
