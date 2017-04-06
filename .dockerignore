@@ -1,0 +1,15 @@
+# Docker dockerignore 04-2017
+
+.dockerignore
+Dockerfile*
+
+*.md
+!README*.md
+
+.git*
+.cache*
+.gitignore
+.env
+.eslintrc
+.editorconfig
+.gitlab-ci.yml
