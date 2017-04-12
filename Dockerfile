@@ -2,7 +2,8 @@ FROM docker:1.13-git
 
 # BUILD_DEPS are used only to build the Docker image
 # RUN_DEPS are installed and persist in the final built image
-ENV BUILD_DEPS="py-pip alpine-sdk go" \
+ENV	\
+		BUILD_DEPS="py-pip alpine-sdk go" \
 		RUN_DEPS="groff less python bash" \
 		GOPATH=/
 
