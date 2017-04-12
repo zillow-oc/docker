@@ -4,7 +4,7 @@ FROM docker:1.13-git
 # RUN_DEPS are installed and persist in the final built image
 ENV	\
 		BUILD_DEPS="py-pip alpine-sdk go" \
-		RUN_DEPS="groff less python bash" \
+		RUN_DEPS="groff less python bash socat" \
 		GOPATH=/
 
 WORKDIR /
