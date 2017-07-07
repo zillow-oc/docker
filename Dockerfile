@@ -6,8 +6,7 @@ ENV	\
 		BUILD_DEPS="py-pip alpine-sdk go curl" \
 		RUN_DEPS="groff less python bash socat" \
 		GOPATH=/ \
-		NOMAD_URL="https://releases.hashicorp.com/nomad/0.5.6/nomad_0.5.6_linux_amd64.zip" \
-		NOMAD_ENDPOINT="http://nomad.service.consul:4646"
+		NOMAD_URL="https://releases.hashicorp.com/nomad/0.5.6/nomad_0.5.6_linux_amd64.zip"
 
 WORKDIR /
 
