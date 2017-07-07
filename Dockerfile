@@ -21,6 +21,7 @@ RUN \
 	curl $NOMAD_URL > /tmp/nomad.zip && \
 	unzip -o /tmp/nomad.zip -d /usr/bin && \
 	chmod +x /usr/bin/nomad && \
+	mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2 && \
 	rm -f /tmp/nomad.zip && \
 
 	# Install https://github.com/awslabs/amazon-ecr-credential-helper
