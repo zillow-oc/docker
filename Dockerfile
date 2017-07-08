@@ -6,7 +6,8 @@ ENV	\
 		BUILD_DEPS="py-pip alpine-sdk go curl" \
 		RUN_DEPS="groff less python bash socat" \
 		GOPATH=/ \
-		NOMAD_URL="https://releases.hashicorp.com/nomad/0.5.6/nomad_0.5.6_linux_amd64.zip"
+		NOMAD_URL="https://releases.hashicorp.com/nomad/0.5.6/nomad_0.5.6_linux_amd64.zip" \
+		CONSUL_TEMPLATE_URL="https://releases.hashicorp.com/consul-template/0.19.0/consul-template_0.19.0_linux_amd64.zip"
 
 WORKDIR /
 
@@ -17,11 +18,18 @@ RUN \
 	apk -Uuv --no-cache add $RUN_DEPS $BUILD_DEPS && \	
 	pip --no-cache-dir install awscli && \
 	
+	# Install Nomad
 	curl $NOMAD_URL > /tmp/nomad.zip && \
 	unzip -o /tmp/nomad.zip -d /usr/bin && \
 	chmod +x /usr/bin/nomad && \
 	mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2 && \
 	rm -f /tmp/nomad.zip && \
+	
+	# Install Consul Template
+	curl $CONSUL_TEMPLATE_URL > /tmp/consul-template.zip && \
+	unzip -o /tmp/consul-template.zip -d /usr/bin && \
+	chmod +x /usr/bin/consul-template && \
+	rm -f /tmp/consul-template.zip && \
 
 	# Install https://github.com/awslabs/amazon-ecr-credential-helper
 	# Uses IAM roles to login to AWS ECR without a separate docker login
