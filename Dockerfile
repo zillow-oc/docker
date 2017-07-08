@@ -3,8 +3,8 @@ FROM docker:17.06-git
 # BUILD_DEPS are used only to build the Docker image
 # RUN_DEPS are installed and persist in the final built image
 ENV	\
-		BUILD_DEPS="py-pip alpine-sdk go curl" \
-		RUN_DEPS="groff less python bash socat" \
+		BUILD_DEPS="py-pip alpine-sdk go curl nodejs-npm" \
+		RUN_DEPS="groff less python bash socat nodejs" \
 		GOPATH=/ \
 		NOMAD_URL="https://releases.hashicorp.com/nomad/0.5.6/nomad_0.5.6_linux_amd64.zip" \
 		CONSUL_TEMPLATE_URL="https://releases.hashicorp.com/consul-template/0.19.0/consul-template_0.19.0_linux_amd64.zip"
@@ -15,7 +15,8 @@ RUN \
 
 	# Install packages without storing package manager cache
 	mkdir -p /aws && \
-	apk -Uuv --no-cache add $RUN_DEPS $BUILD_DEPS && \	
+	apk -Uuv --no-cache add $RUN_DEPS $BUILD_DEPS && \
+	npm install -g kongfig && npm cache clean && \
 	pip --no-cache-dir install awscli && \
 	
 	# Install Nomad
