@@ -18,7 +18,7 @@ RUN \
 	# Install packages without storing package manager cache
 	mkdir -p /aws && \
 	apk -Uuv --no-cache add $RUN_DEPS $BUILD_DEPS && \
-	npm install -g kongfig && npm cache clean && \
+	npm install -g kongfig@1.3.0 && npm cache clean && \
 	pip --no-cache-dir install awscli && \
 
 	# Install Nomad
