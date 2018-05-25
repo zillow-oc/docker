@@ -6,10 +6,10 @@ ENV	\
 		BUILD_DEPS="py-pip alpine-sdk go nodejs-npm" \
 		RUN_DEPS="groff less python bash socat nodejs curl" \
 		GOPATH=/ \
-		NOMAD_URL="https://releases.hashicorp.com/nomad/0.7.1/nomad_0.7.1_linux_amd64.zip" \
+		NOMAD_URL="https://releases.hashicorp.com/nomad/0.8.3/nomad_0.8.3_linux_amd64.zip" \
 		CONSUL_URL="https://releases.hashicorp.com/consul/1.0.1/consul_1.0.1_linux_amd64.zip" \
 		CONSUL_TEMPLATE_URL="https://releases.hashicorp.com/consul-template/0.19.3/consul-template_0.19.3_linux_amd64.zip" \
-		LEVANT_URL="https://github.com/jrasell/levant/releases/download/0.1.0/linux-amd64-levant"
+		LEVANT_URL="https://github.com/jrasell/levant/releases/download/0.1.1/linux-amd64-levant"
 
 WORKDIR /
 
