@@ -9,7 +9,8 @@ ENV	\
 		NOMAD_URL="https://releases.hashicorp.com/nomad/0.8.4/nomad_0.8.4_linux_amd64.zip" \
 		CONSUL_URL="https://releases.hashicorp.com/consul/1.2.1/consul_1.2.1_linux_amd64.zip" \
 		CONSUL_TEMPLATE_URL="https://releases.hashicorp.com/consul-template/0.19.5/consul-template_0.19.5_linux_amd64.zip" \
-		LEVANT_URL="https://github.com/jrasell/levant/releases/download/0.2.1/linux-amd64-levant"
+		LEVANT_URL="https://github.com/jrasell/levant/releases/download/0.2.2/linux-amd64-levant" \
+		TF_URL="https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip"
 
 WORKDIR /
 
@@ -45,6 +46,12 @@ RUN \
 	curl -L $LEVANT_URL -o /tmp/levant && \
 	mv /tmp/levant /usr/bin/levant && \
 	chmod +x /usr/bin/levant && \
+
+	# Install Terraform - Infrastructure as Code
+	curl $TF_URL > /tmp/tf.zip && \
+	unzip -o /tmp/tf.zip -d /usr/bin && \
+	chmod +x /usr/bin/terraform && \
+	rm -f /tmp/tf.zip && \
 
 	# Install https://github.com/awslabs/amazon-ecr-credential-helper
 	# Uses IAM roles to login to AWS ECR without a separate docker login
