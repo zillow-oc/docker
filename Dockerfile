@@ -55,9 +55,10 @@ RUN \
 	rm -f /tmp/tf.zip && \
 
 	# Install Terraform Kong provider - github.com/kevholditch/terraform-provider-kong
-	curl -L $TF_KONG_PLUGIN_URL > tf-kong-provider.zip && \
+	curl -L $TF_KONG_PLUGIN_URL > /tmp/tf-kong-provider.zip && \
 	mkdir -p ~/.terraform.d/plugins && \
-	unzip -o tf-kong-provider.zip -d ~/.terraform.d/plugins && \
+	unzip -o /tmp/tf-kong-provider.zip -d ~/.terraform.d/plugins && \
+	rm -f /tmp/tf-kong-provider.zip && \
 
 	# Install https://github.com/awslabs/amazon-ecr-credential-helper
 	# Uses IAM roles to login to AWS ECR without a separate docker login
