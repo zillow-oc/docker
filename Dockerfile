@@ -24,7 +24,7 @@ RUN \
 	pip --no-cache-dir install awscli && \
 
 	# Install Nomad
-	curl $NOMAD_URL > /tmp/nomad.zip && \
+	curl -L $NOMAD_URL > /tmp/nomad.zip && \
 	unzip -o /tmp/nomad.zip -d /usr/bin && \
 	chmod +x /usr/bin/nomad && \
 	# Work-around for alpine incompatibility
@@ -32,13 +32,13 @@ RUN \
 	rm -f /tmp/nomad.zip && \
 
 	# Install Consul
-	curl $CONSUL_URL > /tmp/consul.zip && \
+	curl -L $CONSUL_URL > /tmp/consul.zip && \
 	unzip -o /tmp/consul.zip -d /usr/bin && \
 	chmod +x /usr/bin/consul && \
 	rm -f /tmp/consul.zip && \
 
 	# Install Consul Template
-	curl $CONSUL_TEMPLATE_URL > /tmp/consul-template.zip && \
+	curl -L $CONSUL_TEMPLATE_URL > /tmp/consul-template.zip && \
 	unzip -o /tmp/consul-template.zip -d /usr/bin && \
 	chmod +x /usr/bin/consul-template && \
 	rm -f /tmp/consul-template.zip && \
@@ -49,14 +49,14 @@ RUN \
 	chmod +x /usr/bin/levant && \
 
 	# Install Terraform - Infrastructure as Code
-	curl $TF_URL > /tmp/tf.zip && \
+	curl -L $TF_URL > /tmp/tf.zip && \
 	unzip -o /tmp/tf.zip -d /usr/bin && \
 	chmod +x /usr/bin/terraform && \
 	rm -f /tmp/tf.zip && \
 
 	# Install Terraform Kong provider - github.com/kevholditch/terraform-provider-kong
+	curl -L $TF_KONG_PLUGIN_URL > tf-kong-provider.zip && \
 	mkdir -p ~/.terraform.d/plugins && \
-	curl $TF_KONG_PLUGIN_URL > tf-kong-provider.zip && \
 	unzip -o tf-kong-provider.zip -d ~/.terraform.d/plugins && \
 
 	# Install https://github.com/awslabs/amazon-ecr-credential-helper
