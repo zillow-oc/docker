@@ -74,4 +74,4 @@ RUN \
 
 	# Cleanup
 	apk --purge -v del $BUILD_DEPS && \
-	rm /var/cache/apk/*
+	rm -rf /var/cache/*
