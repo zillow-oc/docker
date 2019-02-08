@@ -1,34 +1,32 @@
-FROM docker:18.06-git
+FROM amazonlinux:2
 
 # BUILD_DEPS are used only to build the Docker image
 # RUN_DEPS are installed and persist in the final built image
 ENV \
-	BUILD_DEPS="py-pip alpine-sdk go nodejs-npm" \
-	RUN_DEPS="groff less python bash socat nodejs curl" \
+	BUILD_DEPS="python-pip golang npm" \
+	RUN_DEPS="aws-cli amazon-ecr-credential-helper bash curl git groff less nodejs python socat" \
+	AMZN_LINUX_EXTRAS="docker epel" \
 	GOPATH=/ \
-	NOMAD_URL="https://releases.hashicorp.com/nomad/0.8.4/nomad_0.8.4_linux_amd64.zip" \
-	CONSUL_URL="https://releases.hashicorp.com/consul/1.2.1/consul_1.2.1_linux_amd64.zip" \
+	NOMAD_URL="https://releases.hashicorp.com/nomad/0.8.7/nomad_0.8.7_linux_amd64.zip" \
+	CONSUL_URL="https://releases.hashicorp.com/consul/1.4.2/consul_1.4.2_linux_amd64.zip" \
 	CONSUL_TEMPLATE_URL="https://releases.hashicorp.com/consul-template/0.19.5/consul-template_0.19.5_linux_amd64.zip" \
-	LEVANT_URL="https://github.com/jrasell/levant/releases/download/0.2.2/linux-amd64-levant" \
-	TF_URL="https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip" \
-	TF_KONG_PLUGIN_URL="https://github.com/kevholditch/terraform-provider-kong/releases/download/v1.7.0/terraform-provider-kong_1.7.0_linux_amd64.zip"
+	LEVANT_URL="https://github.com/jrasell/levant/releases/download/0.2.5/linux-amd64-levant" \
+	TF_URL="https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip" \
+	TF_KONG_PLUGIN_URL="https://github.com/kevholditch/terraform-provider-kong/releases/download/v4.1.0/terraform-provider-kong_4.1.0_linux_amd64.zip"
 
 WORKDIR /
 
 RUN \
-
 	# Install packages without storing package manager cache
 	mkdir -p /aws && \
-	apk -Uuv --no-cache add $RUN_DEPS $BUILD_DEPS && \
-	npm install -g kongfig && npm cache clean --force && \
-	pip --no-cache-dir install awscli && \
+	amazon-linux-extras install $AMZN_LINUX_EXTRAS && \
+	yum install -y $RUN_DEPS $BUILD_DEPS && \
 
 	# Install Nomad
 	curl -L $NOMAD_URL > /tmp/nomad.zip && \
 	unzip -o /tmp/nomad.zip -d /usr/bin && \
 	chmod +x /usr/bin/nomad && \
 	# Work-around for alpine incompatibility
-	mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2 && \
 	rm -f /tmp/nomad.zip && \
 
 	# Install Consul
@@ -63,15 +61,10 @@ RUN \
 	# Install https://github.com/awslabs/amazon-ecr-credential-helper
 	# Uses IAM roles to login to AWS ECR without a separate docker login
 	#   Disable by removing the "~/.docker/config.json"
-	git clone https://github.com/awslabs/amazon-ecr-credential-helper.git src/github.com/awslabs/amazon-ecr-credential-helper && \
-	cd src/github.com/awslabs/amazon-ecr-credential-helper && \
-	make && \
-	mv bin/local/docker-credential-ecr-login /bin/ && \
-	cd / && \
-	rm -rf src/github.com/awslabs/amazon-ecr-credential-helper && \
 	mkdir -p ~/.docker && \
 	echo -e '{ "credsStore": "ecr-login" }' > ~/.docker/config.json && \
+	echo -e '{ "credsStore": "ecr-login" }' > /etc/nomad-docker-credential-helper.json && \
 
 	# Cleanup
-	apk --purge -v del $BUILD_DEPS && \
-	rm -rf /var/cache/*
+	yum clean all
+	rm -rf /var/cache/yum
