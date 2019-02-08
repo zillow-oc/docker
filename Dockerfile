@@ -66,5 +66,5 @@ RUN \
 	echo -e '{ "credsStore": "ecr-login" }' > /etc/nomad-docker-credential-helper.json && \
 
 	# Cleanup
-	yum clean all
+	yum clean all && \
 	rm -rf /var/cache/yum
