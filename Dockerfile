@@ -4,7 +4,7 @@ FROM amazonlinux:2
 # RUN_DEPS are installed and persist in the final built image
 ENV \
 	BUILD_DEPS="python-pip golang npm" \
-	RUN_DEPS="aws-cli amazon-ecr-credential-helper bash curl git groff less nodejs python socat" \
+	RUN_DEPS="aws-cli amazon-ecr-credential-helper bash curl git groff less nodejs python socat unzip" \
 	AMZN_LINUX_EXTRAS="docker epel" \
 	GOPATH=/ \
 	NOMAD_URL="https://releases.hashicorp.com/nomad/0.8.7/nomad_0.8.7_linux_amd64.zip" \
