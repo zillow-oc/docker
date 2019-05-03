@@ -9,7 +9,7 @@ ENV \
 	NOMAD_URL="https://releases.hashicorp.com/nomad/0.8.4/nomad_0.8.4_linux_amd64.zip" \
 	CONSUL_URL="https://releases.hashicorp.com/consul/1.2.1/consul_1.2.1_linux_amd64.zip" \
 	CONSUL_TEMPLATE_URL="https://releases.hashicorp.com/consul-template/0.19.5/consul-template_0.19.5_linux_amd64.zip" \
-	LEVANT_URL="https://github.com/jrasell/levant/releases/download/0.2.2/linux-amd64-levant" \
+	LEVANT_URL="https://github.com/jrasell/levant/releases/download/0.2.2/linux-amd64-levant"
 
 WORKDIR /
 
