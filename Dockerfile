@@ -1,10 +1,10 @@
-FROM docker:18.06-git
+FROM docker:18.09-dind
 
 # BUILD_DEPS are used only to build the Docker image
 # RUN_DEPS are installed and persist in the final built image
 ENV \
 	BUILD_DEPS="py-pip alpine-sdk go nodejs-npm" \
-	RUN_DEPS="groff less python bash socat nodejs curl" \
+	RUN_DEPS="groff less python bash socat nodejs curl git openssh-client" \
 	GOPATH=/ \
 	NOMAD_URL="https://releases.hashicorp.com/nomad/0.8.4/nomad_0.8.4_linux_amd64.zip" \
 	CONSUL_URL="https://releases.hashicorp.com/consul/1.2.1/consul_1.2.1_linux_amd64.zip" \
