@@ -1,4 +1,4 @@
-FROM docker:18.06-git
+FROM docker:19.03-git
 
 # BUILD_DEPS are used only to build the Docker image
 # RUN_DEPS are installed and persist in the final built image
